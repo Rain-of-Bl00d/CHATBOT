@@ -7,6 +7,7 @@ import gradio as gr
 import traceback
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from pymongo import MongoClient
 
 nltk.download('punkt_tab')  # Tokenizes text into words
 nltk.download('wordnet')  # Lexical database for lemmatization
@@ -74,6 +75,17 @@ if not dataset["questions"]:
         "Goodbye! Have a great day!", 
         "You're welcome! Let me know if you need more help!"
     ]
+    
+# # Replace with your own URI or use localhost for local MongoDB
+# MONGO_URI = "mongodb://localhost:27017"  # or your Atlas URI
+# client = MongoClient(MONGO_URI)
+
+# # Create/use a database
+# db = client["chatbot_db"]
+
+# # Create/use a collection
+# chat_collection = db["chat_logs"]
+# qa_collection = db["qa_pairs"]
 
 def clean_text(text):
     tokens = nltk.word_tokenize(text.lower())

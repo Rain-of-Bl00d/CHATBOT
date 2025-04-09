@@ -9,7 +9,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from pymongo import MongoClient
 
-nltk.download('punkt_tab')  # Tokenizes text into words
+nltk.download('punkt_tab')  # Tokenizes text into words (it is showing error for many cases! as insecure or some security reassion)
 nltk.download('wordnet')  # Lexical database for lemmatization
 
 lemmatizer = nltk.WordNetLemmatizer()

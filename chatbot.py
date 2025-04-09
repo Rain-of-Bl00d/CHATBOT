@@ -12,7 +12,7 @@ from pymongo import MongoClient
 nltk.download('punkt_tab')  # Tokenizes text into words (it is showing error for many cases! as insecure or some security reassion)
 nltk.download('wordnet')  # Lexical database for lemmatization
 
-lemmatizer = nltk.WordNetLemmatizer()
+lemmatizer = nltk.WordNetLemmatizer() #"I am runnign" => "I am run"
 
 DATASET_FILE = "chatbot_data.json"
 
@@ -88,24 +88,24 @@ if not dataset["questions"]:
 # qa_collection = db["qa_pairs"]
 
 def clean_text(text):
-    tokens = nltk.word_tokenize(text.lower())
-    tokens = [lemmatizer.lemmatize(word) for word in tokens]
-    return ' '.join(tokens)
+    tokens = nltk.word_tokenize(text.lower())# "I Aam dOing " => "i am doing" => ["i", "aam". "doing"]
+    tokens = [lemmatizer.lemmatize(word) for word in tokens] # ["i","am", "do"]
+    return ' '.join(tokens) # "i am do"
 
-cleaned_questions = [clean_text(q) for q in dataset["questions"]]
+cleaned_questions = [clean_text(q) for q in dataset["questions"]] # every forloop iterator is just passing through the clean_text question
 
-vectorizer = TfidfVectorizer()
-X = vectorizer.fit_transform(cleaned_questions)
-y = dataset["answers"]
+vectorizer = TfidfVectorizer() 
+X = vectorizer.fit_transform(cleaned_questions)#"i am do" => [0.001,......binary codes of every language]
+y = dataset["answers"] # passing the dataset as answers
 
-model = LogisticRegression()
-model.fit(X, y)
+model = LogisticRegression() # imporitng logistic regression to model
+model.fit(X, y)# fitting tha values of x and y
 
 def chatbot_response(user_input):
-    cleaned_input = clean_text(user_input)
-    user_vector = vectorizer.transform([cleaned_input])
-    prediction = model.predict(user_vector)[0]
-    return prediction
+    cleaned_input = clean_text(user_input)#as user input to the clean_text function process
+    user_vector = vectorizer.transform([cleaned_input])#same to the binary code
+    prediction = model.predict(user_vector)[0]#first and most logical prediction
+    return prediction# and returns the prediction 
 
 def debug_code(code):
     try:

@@ -4,7 +4,7 @@ import nltk
 import json
 import os
 import gradio as gr
-import traceback
+#import traceback
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from pymongo import MongoClient
